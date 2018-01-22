@@ -18,9 +18,11 @@ public class Main extends Application {
 			Scene scene = new Scene((VBox) loader.load());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void main(String[] args) {
