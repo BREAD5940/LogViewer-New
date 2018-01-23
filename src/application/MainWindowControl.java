@@ -62,7 +62,7 @@ public class MainWindowControl {
 		timeCol.setCellValueFactory(new PropertyValueFactory<LogLine, Long>("time"));
 		runtimeCol.setCellValueFactory(new PropertyValueFactory<LogLine, Long>("runtime"));
 		threadCol.setCellValueFactory(new PropertyValueFactory<LogLine, String>("thread"));
-		clazzCol.setCellValueFactory(new PropertyValueFactory<LogLine, String>("class"));
+		clazzCol.setCellValueFactory(new PropertyValueFactory<LogLine, String>("clazz"));
 		labelCol.setCellValueFactory(new PropertyValueFactory<LogLine, String>("label"));
 		typeCol.setCellValueFactory(new PropertyValueFactory<LogLine, String>("type"));
 		data1Col.setCellValueFactory(new PropertyValueFactory<LogLine, Object>("data1"));
