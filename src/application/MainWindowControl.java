@@ -2,6 +2,9 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
 
 import org.controlsfx.control.table.TableFilter;
 
@@ -11,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,6 +49,17 @@ public class MainWindowControl {
 	private NumberAxis yAxis;
 	@FXML
 	private LineChart<Number, Number> lineChart;
+	@FXML
+    private XYChart.Series series;
+	
+	public void lineChart() throws IOException {
+		series.getData().add(new XYChart.Data("1", 33));
+		series.getData().add(new XYChart.Data("2", 55));
+		series.getData().add(new XYChart.Data("4", 75));
+		lineChart.getData().addAll(series);
+	}
+	
+	
 	
 	ObservableList<LogLine> log;
 	

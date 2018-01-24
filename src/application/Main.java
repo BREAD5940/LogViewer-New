@@ -14,7 +14,7 @@ public class Main extends Application {
 		try {
 			Main.primaryStage = primaryStage;
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("MainWindow.fxml"));	
+			loader.setLocation(Main.class.getResource("MainWindow.fxml"));
 			Scene scene = new Scene((VBox) loader.load());
 			primaryStage.setScene(scene);
 			primaryStage.show();
