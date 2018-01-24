@@ -3,7 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
@@ -15,7 +15,7 @@ public class Main extends Application {
 			Main.primaryStage = primaryStage;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("MainWindow.fxml"));	
-			Scene scene = new Scene((VBox) loader.load());
+			Scene scene = new Scene((BorderPane) loader.load());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

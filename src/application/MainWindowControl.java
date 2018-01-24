@@ -2,19 +2,16 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.ResourceBundle;
 
 import org.controlsfx.control.table.TableFilter;
 
-import com.sun.javafx.scene.control.skin.TableViewSkin;
-
 import application.reading.LogReader;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.TableColumn;
@@ -22,10 +19,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.Callback;
 
-@SuppressWarnings("restriction")
-public class MainWindowControl {
+
+public class MainWindowControl implements Initializable{
 	
 	@FXML
 	public TableView<HashMap<String, Object>> table;
@@ -40,16 +36,6 @@ public class MainWindowControl {
 	
 	LogReader reader;
 	
-    private static Method columnToFitMethod;
-
-    static {
-        try {
-            columnToFitMethod = TableViewSkin.class.getDeclaredMethod("resizeColumnToFitContent", TableColumn.class, int.class);
-            columnToFitMethod.setAccessible(true);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
     
 	public void chooseFile() throws IOException {
 		FileChooser fileChooser = new FileChooser();
@@ -90,5 +76,11 @@ public class MainWindowControl {
 		table.minHeightProperty().bind(Main.primaryStage.heightProperty());
 		table.minWidthProperty().bind(Main.primaryStage.widthProperty());
 
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		table.minHeightProperty().bind(Main.primaryStage.heightProperty());
+		table.minWidthProperty().bind(Main.primaryStage.widthProperty());
 	}
 }
