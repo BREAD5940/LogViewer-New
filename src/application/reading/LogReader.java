@@ -4,7 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -13,13 +19,15 @@ import javafx.collections.ObservableList;
 
 public class LogReader {
 
+	public Set<String> text = new LinkedHashSet<String>();
+	
 	public LogReader() {
 		
 	}
 	
-	public ObservableList<LogLine> readLog(File file) throws IOException {
+	public ObservableList<HashMap<String, Object>> readLog(File file) throws IOException {
 		String line;
-		ObservableList<LogLine> log = FXCollections.observableArrayList();
+		ObservableList<HashMap<String, Object>> log = FXCollections.observableArrayList();
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		line = bufferedReader.readLine().replace("\n", "");
@@ -31,10 +39,29 @@ public class LogReader {
 		return log;
 	}
 
-	private LogLine readLine(String line) {
+	private HashMap<String,Object> readLine(String line) {
 		JsonParser parser = new JsonParser();
-		JsonObject logLine = ((JsonObject) parser.parse(line));
-		return new LogLine(logLine);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		Set<Map.Entry<String,JsonElement>> metadata = ((JsonObject) ((JsonObject) parser.parse(line)).get("metadata")).entrySet();
+		Set<Map.Entry<String,JsonElement>> data = ((JsonObject) ((JsonObject) parser.parse(line)).get("data")).entrySet();
+		Iterator<Map.Entry<String, JsonElement>> dataIterator = data.iterator();
+		Iterator<Map.Entry<String, JsonElement>> metadataIterator = metadata.iterator();
+		
+		while(metadataIterator.hasNext()) {
+			Map.Entry<String, JsonElement> entry = metadataIterator.next();
+			map.put(entry.getKey(), entry.getValue());
+			text.add(entry.getKey());
+			
+		}
+		
+		while(dataIterator.hasNext()) {
+			Map.Entry<String, JsonElement> entry = dataIterator.next();
+			map.put(entry.getKey(), entry.getValue());
+			text.add(entry.getKey());
+		}
+			
+		return map;
 	}
 
 	
