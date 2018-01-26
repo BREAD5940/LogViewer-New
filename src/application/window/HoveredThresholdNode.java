@@ -1,4 +1,4 @@
-package application;
+package application.window;
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
