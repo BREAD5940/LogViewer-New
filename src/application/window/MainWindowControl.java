@@ -35,7 +35,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-@SuppressWarnings("restriction")
 public class MainWindowControl implements Initializable{
 	
 	@FXML
@@ -75,7 +74,6 @@ public class MainWindowControl implements Initializable{
 		oldText = reader.text;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void updateGraph(String label) {
 		XYChart.Series series = new XYChart.Series<>();
 		lineChart.getData().clear();
