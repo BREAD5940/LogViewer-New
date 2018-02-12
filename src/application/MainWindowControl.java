@@ -1,4 +1,4 @@
-package application.window;
+package application;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,12 +16,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 import com.sun.javafx.scene.control.skin.TableViewSkin;
 
-import application.Main;
 import application.reading.LogReader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -31,11 +31,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-@SuppressWarnings("restriction")
 public class MainWindowControl implements Initializable{
 	
 	@FXML
@@ -75,7 +76,6 @@ public class MainWindowControl implements Initializable{
 		oldText = reader.text;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void updateGraph(String label) {
 		XYChart.Series series = new XYChart.Series<>();
 		lineChart.getData().clear();
@@ -131,7 +131,7 @@ public class MainWindowControl implements Initializable{
 		
 		choiceBox.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<String>() {
-					public void changed(@SuppressWarnings("rawtypes") ObservableValue ov, String value, String new_value) {
+					public void changed(ObservableValue ov, String value, String new_value) {
 						updateGraph(new_value);
 					}
 		});
@@ -172,7 +172,8 @@ public class MainWindowControl implements Initializable{
 	private void sizeFit() {
 		TableViewSkin<?> skin = (TableViewSkin<?>) table.getSkin();
         
-        for(TableColumn<?, ?> column:table.getColumns()) {
+        for(TableColumn column:table.getColumns()) {
+//        	column.minWidthProperty().bind(table.minWidthProperty().divide(table.getColumns().size()));	
         	try {	
 	        	if (column != null) {
 	        		Method method;
@@ -182,6 +183,7 @@ public class MainWindowControl implements Initializable{
 					method.invoke(skin, column, 30);
 	        	}
 	        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
